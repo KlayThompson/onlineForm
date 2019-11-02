@@ -1,0 +1,26 @@
+<!--pages/login/login.wxml-->
+<view class="full-container">
+  <view class="title-view">登录</view>
+  <view class="input-container">
+    <view class="phone">
+      <image src="../../resources/phone_number.png" class="icon"></image>
+      <input placeholder="请输入手机号" type="number" bindinput="inputPhoneNumberChange" maxlength="11"></input>
+    </view>
+    <view class="code">
+      <image src="../../resources/verify_code.png" class="icon"></image>
+      <input placeholder="请输入验证码" type="number" bindinput="modalVCodeInputChange" maxlength="6"></input>
+      <view bindtap="sendCode" class="send-code" wx:if='{{showSendCodeBtn}}'>获取验证码</view>
+      <view wx:else class="count-down">{{count}}秒</view>
+    </view>
+  </view>
+
+  <button class="login-button" bindtap="loginButtonClick">登录</button>
+
+  <view class='phone-login-bottom-protocol'>
+    <view class='aggree-protocol-normal'>点击登录, 即表示已阅读并同意</view>
+    <view class='aggree-protocol-select' bindtap='showServiceProtocol'>《用户使用协议》</view>
+  </view>
+</view>
+<!-- 在页面内添加对应的节点 -->
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />

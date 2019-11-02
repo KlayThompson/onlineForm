@@ -1,0 +1,78 @@
+/* pages/login/login.wxss */
+.full-container{
+    height:100%;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+}
+
+.title-view {
+  font-size: 60rpx;
+  line-height: 250rpx;
+  vertical-align: middle;
+  /* background-color: orange; */
+  font-family: '宋体';
+  color: #333333;
+}
+
+.phone {
+  height: 70rpx;
+  border-bottom:2rpx solid #f0f0f0;
+}
+
+.input-container {
+  /* background-color: coral; */
+  height: 220rpx;
+}
+
+.icon {
+  width: 50rpx;
+  height: 50rpx;
+  float: left;
+}
+
+input {
+  padding-left: 50rpx;
+  width: 50%;
+}
+
+.code {
+  height: 70rpx;
+  border-bottom:2rpx solid #f0f0f0;
+  margin-top: 25rpx; 
+}
+
+.send-code {
+  float: right;
+  width: 180rpx;
+  margin-top: -40rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.count-down {
+  float: right;
+  width: 160rpx;
+  margin-top: -40rpx;
+  font-size: 28rpx;
+  color: #888;
+}
+
+.phone-login-bottom-protocol{
+  font-size: 26rpx;
+  margin-top: 20rpx;
+}
+.aggree-protocol-normal{
+  display: inline-block;
+  color: #999999
+}
+.aggree-protocol-select{
+  display: inline-block;
+  color: #5F6F89
+}
+
+.login-button {
+  background-color: #09508e; 
+  color: white;
+  line-height: 70rpx;
+  font-size: 28rpx;
+}

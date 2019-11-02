@@ -1,13 +1,48 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<view class="full-container">
+  <form bindsubmit="formSubmit">
+    <van-cell-group>
+      <!-- 公司 -->
+      <van-cell size="large" title="公司" required is-link value="上海" bindtap='selectCompany' />
+      <!-- 办公地点 -->
+      <van-cell size="large" title="办公地点" required is-link value="花园坊" bindtap='selectCompanyAddress' />
+      <!-- 所属建筑 -->
+      <picker bindchange="selectBuilding" value="{{index}}" range="{{columns}}">
+        <van-cell size="large" title="所属建筑" required is-link value="{{building}}" bindtap='selectBuilding' />
+      </picker>
+      <!-- 联系电话 -->
+      <van-cell size='large' title='联系电话' required>
+        <input name='phone' placeholder="请输入手机号" type="number" maxlength="11" />
+      </van-cell>
+      <!-- 报修地点 -->
+      <van-cell title='报修地点' required border='{{showBorder}}' size="large" />
+      <view class="err-location">
+        <textarea placeholder="请输入详细报修地点，以便我们准确找到报修地点" />
+      </view>
+      <view style="background-color:white">
+        <view class="line"></view>
+      </view>
+
+      <!-- 故障描述 -->
+      <van-cell title='故障描述' required border='{{showBorder}}' size="large" />
+      <view class="err-location">
+        <textarea placeholder="请详细描述故障情况，以便我们能更快定位您的问题" />
+      </view>
+      <view style="background-color:white">
+        <view class="line"></view>
+      </view>
+      <!-- 故障分类 -->
+      <van-cell title='故障分类' required size="large" />
+      <view class="tag-view">
+        <van-tag size='large' plain='{{showBorder}}' type="success">断点</van-tag>
+        <van-tag size='medium' plain='{{!showBorder}}' type="success">开关损坏</van-tag>
+        <van-tag plain type="success">生锈</van-tag>
+        <van-tag plain type="success">失去连接</van-tag>
+        <van-tag plain type="success">长得丑</van-tag>
+
+      </view>
+
+    </van-cell-group>
+    <button form-type="submit">submit</button>
+  </form>
 </view>
