@@ -7,9 +7,17 @@
       <!-- 办公地点 -->
       <van-cell size="large" title="办公地点" required is-link value="花园坊" bindtap='selectCompanyAddress' />
       <!-- 所属建筑 -->
-      <picker bindchange="selectBuilding" value="{{index}}" range="{{columns}}">
+      <picker bindchange="selectBuilding" value="{{index}}" range="{{columns}}" name='building'>
         <van-cell size="large" title="所属建筑" required is-link value="{{building}}" bindtap='selectBuilding' />
       </picker>
+      <!-- 报修人 -->
+      <van-cell size='large' title='姓名' required>
+        <input name='username' placeholder="请输入姓名" type='string' maxlength="11" />
+      </van-cell>
+      <!-- 工号 -->
+      <van-cell size='large' title='工号' required>
+        <input name='usernum' placeholder="请输入工号" type="number" maxlength="11" />
+      </van-cell>
       <!-- 联系电话 -->
       <van-cell size='large' title='联系电话' required>
         <input name='phone' placeholder="请输入手机号" type="number" maxlength="11" />
@@ -17,7 +25,7 @@
       <!-- 报修地点 -->
       <van-cell title='报修地点' required border='{{showBorder}}' size="large" />
       <view class="err-location">
-        <textarea placeholder="请输入详细报修地点，以便我们准确找到报修地点" />
+        <textarea name='location' placeholder="请输入详细报修地点，以便我们准确找到报修地点" />
       </view>
       <view style="background-color:white">
         <view class="line"></view>
@@ -26,23 +34,56 @@
       <!-- 故障描述 -->
       <van-cell title='故障描述' required border='{{showBorder}}' size="large" />
       <view class="err-location">
-        <textarea placeholder="请详细描述故障情况，以便我们能更快定位您的问题" />
+        <textarea name='desc' placeholder="请详细描述故障情况，以便我们能更快定位您的问题" />
       </view>
       <view style="background-color:white">
         <view class="line"></view>
       </view>
       <!-- 故障分类 -->
-      <van-cell title='故障分类' required size="large" />
-      <view class="tag-view">
-        <van-tag size='large' plain='{{showBorder}}' type="success">断点</van-tag>
-        <van-tag size='medium' plain='{{!showBorder}}' type="success">开关损坏</van-tag>
-        <van-tag plain type="success">生锈</van-tag>
-        <van-tag plain type="success">失去连接</van-tag>
-        <van-tag plain type="success">长得丑</van-tag>
-
+      <van-cell title='故障分类' required size="large" border='{{showBorder}}' />
+      <view class="tag-bg-view">
+        <view class="tag-view" wx:for='{{tags}}' wx:for-index='index' wx:for-item="item" wx:key="index" data-title="{{item.title}}" bindtap="selectTag">
+          <van-tag class='tag-btn' size='large' plain='{{!item.select}}' color="#1279cf">{{item.title}}</van-tag>
+        </view>
       </view>
-
+      <!-- 选取图片 -->
+      <view class="page__bd">
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__overview">
+                    <view class="weui-uploader__title">请上传故障图片</view>
+                    <view class="weui-uploader__info">{{files.length}}/6</view>
+                  </view>
+                  <view class="weui-uploader__tips">
+                    最多支持上传6张图片
+                  </view>
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files" id="uploaderFiles">
+                    <block wx:for="{{files}}" wx:key="*this">
+                      <view class="weui-uploader__file">
+                        <image class="remove-img" src="{{close_img}}" mode="aspectFill" bindtap="deleImage" id="{{item}}" data-index="{{index}}"></image>
+                        <image class="weui-uploader__img img-margin" src="{{item}}" mode="aspectFill" bindtap="previewImage" id="{{item}}" /> </view>
+                    </block>
+                  </view>
+                  <view class="weui-uploader__input-box" hidden="{{hiddenChooseImg}}">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
     </van-cell-group>
-    <button form-type="submit">submit</button>
+    <view style="padding-bottom: 40rpx">
+      <button form-type="submit">提交</button>
+    </view>
   </form>
 </view>
+
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />

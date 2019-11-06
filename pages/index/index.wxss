@@ -1,20 +1,21 @@
 /**index.wxss**/
+
 page {
   background-color: #f6f9f6;
 }
 
-.full-container{
-    height:100%;
-}
+/* .full-container {
+  height: 100%;
+} */
 
 button {
-  margin-top: 20px;
-  background-color: #09508e; 
+  background-color: #1279cf;
   color: white;
   line-height: 90rpx;
   font-size: 28rpx;
   width: 80%;
-  margin: 40rpx auto;
+  margin: 40rpx auto 60rpx auto;
+  /* margin-bottom: 40px; */
 }
 
 .err-location {
@@ -26,7 +27,7 @@ textarea {
   height: 150rpx;
   margin-left: 30rpx;
   margin-right: 30rpx;
-  color: #888888;
+  color: #888;
 }
 
 .line {
@@ -35,6 +36,26 @@ textarea {
   margin-left: 30rpx;
 }
 
-.demo-margin-right {
-  margin-right: 10px;
+.tag-btn {
+  margin: 30rpx 0 0 30rpx;
+}
+
+.tag-view {
+  background-color: white;
+  display: inline-block;
+  margin-bottom: 20rpx;
+}
+
+.tag-bg-view {
+  background-color: white;
+}
+
+.remove-img {
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0 74px;
+}
+
+.img-margin {
+  margin-top: -30px;
 }

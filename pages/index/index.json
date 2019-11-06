@@ -4,6 +4,9 @@
     "van-cell": "/utils/dist/cell/index",
     "van-cell-group": "/utils/dist/cell-group/index",
     "van-picker": "/utils/dist/picker/index",
-    "van-tag": "/utils/dist/tag/index"
+    "van-tag": "/utils/dist/tag/index",
+    "van-button": "/utils/dist/button/index",
+    "van-toast": "/utils/dist/toast/index",
+    "van-dialog": "/utils/dist/dialog/index"
   }
 }
