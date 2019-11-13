@@ -3,7 +3,7 @@ var md5 = require('./md5.js')
 var Base64 = require('./base64.min.js')
 const appid = '123'
 const appkey = 'UtOCzqb67d3sN12Kts4URwy8';
-const API_ = 'https://tapp.anyocharging.com:12333'
+const API_ = 'http://172.16.1.2:3505'
 function isPhone(phoneNum) {
   var reg = /^1[0-9]{10}$/
   return reg.test(phoneNum)
@@ -45,7 +45,7 @@ function getHeader(){
   var obj = {
     'app-id': appid,
     'app-sign': sign,
-    'session-token': session
+    'sessionToken': session
   }
   return obj
 }

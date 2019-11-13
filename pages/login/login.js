@@ -53,7 +53,7 @@ Page({
     }
     var header = common.getHeader()
     wx.request({
-      url: API + '/v1/chargingapi/usersByMobilePhone',
+      url: API + '/v1/vwMaintenanceWxapp/login',
       method: 'POST',
       header: header,
       data: {
@@ -68,7 +68,9 @@ Page({
             type: 'success',
             message: '登录成功',
             onClose: function () {
-              wx.navigateBack({})
+              wx.reLaunch({
+                url: '../index/index',
+              })
             }
           })
         } else if (res.statusCode == 403) {
@@ -102,25 +104,38 @@ Page({
     }
     var header = common.getHeader()
     wx.request({
-      url: API + '/v1/chargingapi/requestLoginSmsCode',
+      url: API + '/v1/vwMaintenanceWxapp/requestLoginSmsCode',
       method: 'POST',
       header: header,
       data: {
         phoneNumber: that.data.phone
       },
       success: function (res) {
-        that.setData({
-          showSendCodeBtn: false
-        })
+        if (res.statusCode == 200) {
+          that.setData({
+            showSendCodeBtn: false
+          })
 
-        //开始倒计时
-        timer = setInterval(function () {
-          that.countdown()
-        }, 1000)
-        Notify({
-          type: 'success',
-          message: '验证码已发送'
-        });
+          //开始倒计时
+          timer = setInterval(function () {
+            that.countdown()
+          }, 1000)
+          Notify({
+            type: 'success',
+            message: '验证码已发送'
+          });
+        } else if (res.statusCode == 403) {
+          Notify({
+            type: 'warning',
+            message: '该手机号不存在,用户无权登录'
+          });
+        } else {
+          Notify({
+            type: 'warning',
+            message: '验证码发送失败'
+          });
+        }
+        
       },
       fail: function (err) {
         Notify({

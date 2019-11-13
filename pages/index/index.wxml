@@ -3,11 +3,15 @@
   <form bindsubmit="formSubmit">
     <van-cell-group>
       <!-- 公司 -->
-      <van-cell size="large" title="公司" required is-link value="上海" bindtap='selectCompany' />
+      <picker bindchange="selectCompany" value="{{index}}" range="{{companyArr}}" name='company'>
+        <van-cell size="large" title="公司" required is-link value="{{company}}" bindtap='selectCompany' />
+      </picker>
       <!-- 办公地点 -->
-      <van-cell size="large" title="办公地点" required is-link value="花园坊" bindtap='selectCompanyAddress' />
+      <picker bindchange="selectCompanyAddress" value="{{index}}" range="{{officeArr}}" name='office'>
+        <van-cell size="large" title="办公地点" required is-link value="{{office}}" bindtap='selectCompanyAddress' />
+      </picker>
       <!-- 所属建筑 -->
-      <picker bindchange="selectBuilding" value="{{index}}" range="{{columns}}" name='building'>
+      <picker bindchange="selectBuilding" value="{{index}}" range="{{buildingArr}}" name='building'>
         <van-cell size="large" title="所属建筑" required is-link value="{{building}}" bindtap='selectBuilding' />
       </picker>
       <!-- 报修人 -->
