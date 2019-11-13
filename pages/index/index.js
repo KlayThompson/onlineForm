@@ -114,7 +114,7 @@ Page({
       Toast('请输入工号')
       return
     }
-    if (common.isEmpty(e.detail.value.phone) || common.isPhone(e.detail.value.phone)) {
+    if (common.isEmpty(e.detail.value.phone) || !common.isPhone(e.detail.value.phone)) {
       Toast('请输入正确的手机号码')
       return
     }
@@ -139,7 +139,11 @@ Page({
     }
 
     if (that.data.files.length > 0) {
-      var uploadCount = 0
+      Toast.loading({
+        duration: 0,
+        mask: true,
+        message: '请稍后...'
+      });
       var picsArr = []
       for (var i = 0; i < that.data.files.length; i++) {
         var filePath = that.data.files[i];
@@ -148,7 +152,7 @@ Page({
           console.log('file url is: ' + res.fileUrl);
           //图片地址
           picsArr.push(res.fileUrl);
-          if (uploadCount == that.data.files.length) {
+          if (picsArr.length == that.data.files.length) {
             //图片上传完成，开始上传表单内容
             wx.request({
               url: API + '/v1/vwMaintenanceWxapp/record',
@@ -168,14 +172,25 @@ Page({
                 imgUrls: JSON.stringify(picsArr)
               },
               success: function(res) {
+                Toast.clear()
                 if (res.statusCode == 200) {
-                  console.log('成功')
+                  Toast.success({
+                    message: '故障上报成功!',
+                    duration: 3500,
+                    onClose: function () {
+                      //清空表单
+                      wx.reLaunch({
+                        url: '../index/index',
+                      })
+                    }
+                  })
                 } else {
-                  Toast('上报失败，请重新尝试')
+                  Toast('故障上报失败，请重新尝试')
                 }
               },
               fail: function(err) {
-                Toast('上报失败，请检查网络')
+                Toast.clear()
+                Toast('故障上报失败，请检查网络')
               }
             })
           }
@@ -187,15 +202,13 @@ Page({
           // uptoken: that.data.accesskey,
           domain: 'q0l9bm9ve.bkt.clouddn.com',
           uptoken: 'Jwi4nt4LG0oSorAZPptqPSBNZosVAJS-TqxdSohg:r-O_SQzpjlF_Q-0LJNZ4TKPXQsI=:eyJzY29wZSI6InN3aW5nY2xvdWQiLCJkZWFkbGluZSI6MTU3MzY1MDY1MH0='
-        }, (res) => {
-          console.log('上传进度', res.progress)
-          console.log('已经上传的数据长度', res.totalBytesSent)
-          console.log('预期需要上传的数据总长度', res.totalBytesExpectedToSend)
-        }, (res) => {
-          uploadCount += 1;
         });
       }
     } else {
+      Toast.loading({
+        mask: true,
+        message: '请稍后...'
+      });
       wx.request({
         url: API + '/v1/vwMaintenanceWxapp/record',
         method: 'POST',
@@ -214,14 +227,25 @@ Page({
           imgUrls: ''
         },
         success: function (res) {
+          Toast.clear()
           if (res.statusCode == 200) {
-            console.log('成功')
+            Toast.success({
+              message: '故障上报成功!',
+              duration: 3500,
+              onClose: function() {
+                //清空表单
+                wx.reLaunch({
+                  url: '../index/index',
+                })
+              }
+            })
           } else {
-            Toast('上报失败，请重新尝试')
+            Toast('故障上报失败，请重新尝试')
           }
         },
         fail: function (err) {
-          Toast('上报失败，请检查网络')
+          Toast.clear()
+          Toast('故障上报失败，请检查网络')
         }
       })
     }
