@@ -7,12 +7,12 @@
         <van-cell size="large" title="公司" required is-link value="{{company}}" bindtap='selectCompany' />
       </picker>
       <!-- 办公地点 -->
-      <picker bindchange="selectCompanyAddress" value="{{index}}" range="{{officeArr}}" name='office'>
-        <van-cell size="large" title="办公地点" required is-link value="{{office}}" bindtap='selectCompanyAddress' />
+      <picker bindchange="selectCompanyAddress" value="{{index}}" range="{{officeArr}}" range-key="office" name='office'>
+        <van-cell size="large" title="办公地点" required is-link value="{{office.office}}" bindtap='selectCompanyAddress' />
       </picker>
       <!-- 所属建筑 -->
-      <picker bindchange="selectBuilding" value="{{index}}" range="{{buildingArr}}" name='building'>
-        <van-cell size="large" title="所属建筑" required is-link value="{{building}}" bindtap='selectBuilding' />
+      <picker bindchange="selectBuilding" value="{{index}}" range="{{buildingArr}}" range-key="building" name='building'>
+        <van-cell size="large" title="所属建筑" required is-link value="{{building.building}}" bindtap='selectBuilding' />
       </picker>
       <!-- 报修人 -->
       <van-cell size='large' title='姓名' required>

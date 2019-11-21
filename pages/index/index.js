@@ -7,15 +7,16 @@ const app = getApp()
 var API = app.globalData.API;
 var common = require('../../utils/common.js')
 const qiniuUploader = require("../../utils/qiniuUploader");
+var jsonData = require('../../utils/data.js')
 
 Page({
   data: {
     islogin: false,
-    companyArr: ['上海', '北京', '纽约'],
+    companyArr: ['大众安亭厂区'],
     company: '',
-    officeArr: ['花园坊', '静安寺', '和平饭店'],
+    officeArr: [],
     office: '',
-    buildingArr: ['A1栋', 'A2栋', 'A3栋', 'A4栋', 'A5栋'],
+    buildingArr: [],
     building: '',
     index: 0,
     showBorder: false,
@@ -23,32 +24,61 @@ Page({
     hiddenChooseImg: false,
     close_img: '../../resources/close_btn.png',
     accesskey: '',
-    tags: [{
-        title: '失去连接',
+    tags: [
+      {
+        title: '消防设施',
         select: false
       },
       {
-        title: '故障',
+        title: '保卫设施',
         select: false
       },
       {
-        title: '开关损坏',
+        title: '食堂及浴室设施',
         select: false
       },
       {
-        title: '没电',
+        title: 'IT类（64999）',
         select: false
       },
       {
-        title: '无信号',
+        title: '照明类',
         select: false
       },
       {
-        title: '有毒',
+        title: '空调与通风',
         select: false
       },
       {
-        title: '占用中',
+        title: '办公室家具',
+        select: false
+      },
+      {
+        title: '电子设备（电视投影冰箱微波炉等）',
+        select: false
+      },
+      {
+        title: '电力供应',
+        select: false
+      },
+      {
+        title: '天然气设施',
+        select: false
+      },
+      {
+        title: '自来水供应',
+        select: false
+      },
+      {
+        title: '祥源动力管线（蒸汽压缩空气冷热水）',
+        select: false
+      },
+      {
+        title: '土建类',
+        select: false
+      },
+      {
+        title: '其他',
         select: false
       },
     ]
@@ -87,6 +117,10 @@ Page({
         }
       })
     }
+    var arr = jsonData.getOfficeData();
+    that.setData({
+      officeArr: arr
+    })
   },
 
   formSubmit: function(e) {
@@ -98,11 +132,11 @@ Page({
       Toast('请选择公司名称')
       return
     }
-    if (common.isEmpty(that.data.office)) {
+    if (common.isEmpty(that.data.office.office)) {
       Toast('请选择办公地点')
       return
     }
-    if (common.isEmpty(that.data.building)) {
+    if (common.isEmpty(that.data.building.building)) {
       Toast('请选择所属建筑')
       return
     }
@@ -198,10 +232,10 @@ Page({
           console.log('error: ' + error);
         }, {
           region: 'ECN',
-          // domain: 'q0sjvxibw.bkt.clouddn.com',
-          // uptoken: that.data.accesskey,
-          domain: 'q0l9bm9ve.bkt.clouddn.com',
-          uptoken: 'Jwi4nt4LG0oSorAZPptqPSBNZosVAJS-TqxdSohg:r-O_SQzpjlF_Q-0LJNZ4TKPXQsI=:eyJzY29wZSI6InN3aW5nY2xvdWQiLCJkZWFkbGluZSI6MTU3MzY1MDY1MH0='
+          domain: 'q0sjvxibw.bkt.clouddn.com',
+          uptoken: that.data.accesskey,
+          // domain: 'q0l9bm9ve.bkt.clouddn.com',
+          // uptoken: 'Jwi4nt4LG0oSorAZPptqPSBNZosVAJS-TqxdSohg:r-O_SQzpjlF_Q-0LJNZ4TKPXQsI=:eyJzY29wZSI6InN3aW5nY2xvdWQiLCJkZWFkbGluZSI6MTU3MzY1MDY1MH0='
         });
       }
     } else {
@@ -264,8 +298,11 @@ Page({
     if (e.type == 'tap') {
       return
     }
+    var arr = this.data.officeArr[e.detail.value].buildingList
     this.setData({
-      office: this.data.officeArr[e.detail.value]
+      office: this.data.officeArr[e.detail.value],
+      buildingArr: arr,
+      building: ''
     })
   },
 
@@ -286,7 +323,7 @@ Page({
       if (title == model.title) {
         let choseChange = "tags[" + i + "].select"
         this.setData({
-          [choseChange]: true,
+          [choseChange]: !model.select,
         })
       }
       // else {
