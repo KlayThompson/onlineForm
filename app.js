@@ -4,7 +4,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    API: 'http://172.16.1.2:3505',
+    API: 'https://tapp.anyocharging.com:4204',
     isLogin: wx.getStorageSync('isLogin')
   }
 })

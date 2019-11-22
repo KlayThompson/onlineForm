@@ -12,7 +12,7 @@ var jsonData = require('../../utils/data.js')
 Page({
   data: {
     islogin: false,
-    companyArr: ['大众安亭厂区'],
+    companyArr: ['上汽大众安亭基地'],
     company: '',
     officeArr: [],
     office: '',
@@ -195,8 +195,8 @@ Page({
               data: {
                 userId: e.detail.value.usernum,
                 companyName: that.data.company,
-                officeAddress: that.data.office,
-                building: that.data.building,
+                officeAddress: that.data.office.office,
+                building: that.data.building.building,
                 userName: e.detail.value.username,
                 jobNumber: e.detail.value.usernum,
                 phone: e.detail.value.phone,
@@ -250,8 +250,8 @@ Page({
         data: {
           userId: e.detail.value.usernum,
           companyName: that.data.company,
-          officeAddress: that.data.office,
-          building: that.data.building,
+          officeAddress: that.data.office.office,
+          building: that.data.building.building,
           userName: e.detail.value.username,
           jobNumber: e.detail.value.usernum,
           phone: e.detail.value.phone,
